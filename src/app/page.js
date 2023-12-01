@@ -1,33 +1,27 @@
+// This components
 import Banner from "@/components/Banner";
+import Header from "@/components/List/Header";
+// end
+
 import List from "@/components/List";
+import Link from "next/link";
 
 const Home = async () => {
   const API = process.env.NEXT_PUBLC_API_BASE_URL;
 
-  const response = await fetch(`${API}/top/anime`);
+  const response = await fetch(`${API}/top/anime?limit=8`);
 
-  const anime = await response.json();
-  console.log(anime);
+  const topAnime = await response.json();
 
   return (
     <div>
-      <div>
-        <Banner />
-      </div>
-      <h1>Popular</h1>
-      <div className="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-        {anime.data.map((data) => {
-          return (
-            <div key={data.mal_id} className="shadow-xl">
-              <List
-                title={data.title}
-                images={data.images.webp.image_url}
-                id={data.mal_id}
-              />
-            </div>
-          );
-        })}
-      </div>
+      <Banner />
+      <Header
+        title="Paling populer"
+        LinkTitle="Liat semua"
+        LinkHreft="/popular"
+      />
+      <List api={topAnime} />
     </div>
   );
 };

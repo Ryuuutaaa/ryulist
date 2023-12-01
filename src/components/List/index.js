@@ -1,28 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const List = ({ title, images, id }) => {
+const List = ({ api }) => {
   return (
     <section>
-      <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
-        <ul>
-          <li>
-            <Link href={`/${id}`} className="block overflow-hidden group">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 p-4">
+        {api.data.map((anime) => {
+          return (
+            <Link
+              href={`/${anime.mal_id}`}
+              className="block overflow-hidden group"
+            >
               <Image
-                src={images}
-                alt=".........."
-                width={600}
-                height={600}
-                className="w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                src={anime.images.webp.image_url}
+                width={350}
+                height={350}
+                alt="....."
+                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px] rounded"
               />
+              <h2 className="font-bold text-center p-4">{anime.title}</h2>
             </Link>
-            <div className="relative pt-3 bg-white">
-              <p className="mt-2">
-                <span className="text-black font-bold"> {title} </span>
-              </p>
-            </div>
-          </li>
-        </ul>
+          );
+        })}
       </div>
     </section>
   );

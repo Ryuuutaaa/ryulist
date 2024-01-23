@@ -5,11 +5,12 @@ const List = ({ api }) => {
   return (
     <section>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 p-4">
-        {api.data.map((anime) => {
+        {api.data?.map((anime, index) => {
           return (
             <Link
-              href={`/${anime.mal_id}`}
-              className="block overflow-hidden group"
+              href={`/anime/${anime.mal_id}`}
+              className="block overflow-hidden group text-color-primary hover:text-color-accent transition-all"
+              key={index}
             >
               <Image
                 src={anime.images.webp.image_url}
@@ -18,7 +19,7 @@ const List = ({ api }) => {
                 alt="....."
                 className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px] rounded"
               />
-              <h2 className="font-bold text-center p-4">{anime.title}</h2>
+              <h2 className="font-bold text-center p-4 ">{anime.title}</h2>
             </Link>
           );
         })}

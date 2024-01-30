@@ -1,26 +1,31 @@
 // This components
-import Banner from "@/components/Banner";
+
 import Header from "@/components/List/Header";
 import List from "@/components/List";
+import { getAnimeResponse } from "./libs/api-libs";
+import Carousel from "@/components/Carousel/page";
+import TopAnime from "@/components/List/Top_Anime";
+import UpcomingAnime from "@/components/List/Upcoming_Anime";
 
 // end
 
 const Page = async () => {
-  const API = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  const response = await fetch(`${API}/top/anime?limit=8`);
-
-  const topAnime = await response.json();
+  const topAnime = await getAnimeResponse("top/anime", "limit=12");
+  const topAnime1 = await getAnimeResponse("top/anime");
+  const upcomingAnime = await getAnimeResponse("seasons/upcoming");
 
   return (
     <>
-      <section className="pt-20">
+      <section>
+        <Carousel randomAnime={topAnime} />
+        <Header title=" populer" LinkTitle="Liat semua" LinkHreft="/popular" />
+        <TopAnime populer={topAnime1} />
         <Header
-          title="Paling populer"
+          title="upcoming"
           LinkTitle="Liat semua"
-          LinkHreft="/popular"
+          // LinkHreft="/popular"
         />
-        <List api={topAnime} />
+        <UpcomingAnime upcoming={upcomingAnime} />
       </section>
     </>
   );

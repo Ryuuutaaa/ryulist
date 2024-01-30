@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
 import InputSearch from "./InputSearch";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const [scrolling, setScrolling] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <header className="bg-color-accent fixed w-full z-50 border border-b-gray-800 ">
+    <header
+      className={`bg-color-accent fixed w-full z-50 border border-b-gray-800 transition-all duration-300 ${
+        scrolling ? "h-16" : "h-0 overflow-hidden"
+      }`}
+    >
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 ">
         <div className="flex h-16 items-center justify-between ">
           <div className="md:flex md:items-center md:gap-12">

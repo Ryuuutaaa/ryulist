@@ -2,31 +2,30 @@
 
 import List from "@/components/List";
 import HeaderMenu from "@/components/utilities/HeaderMenu";
-import PaginationPage from "@/components/utilities/Pagination";
+import PaginationBottom from "@/components/utilities/Pagination";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getAnimeResponse } from "../libs/api-libs";
 
-import React, { useEffect, useState } from "react";
-
-const page = () => {
-  const [page, setPage] = useState(1);
+const Page = () => {
+  const [pagess, setPage] = useState(1);
   const [topAnime, setTopAnime] = useState([]);
-  const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const fetchData = async () => {
-    const response = await fetch(`${API}/top/anime?page=${page}`);
-    const data = await response.json();
+    const data = await getAnimeResponse("top/anime", `page=${pagess}`);
     setTopAnime(data);
   };
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [pagess]);
 
   return (
     <div className="pt-20">
-      <HeaderMenu title={`ANIME POPULER #${page}`} />
+      <HeaderMenu title={`ANIME POPULER #${pagess}`} />
       <List api={topAnime} />
-      <PaginationPage
-        page={page}
+      <PaginationBottom
+        page={pagess}
         setPage={setPage}
         lastPage={topAnime.pagination?.last_visible_page}
       />
@@ -34,4 +33,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

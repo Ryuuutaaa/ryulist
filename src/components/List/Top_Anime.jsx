@@ -18,7 +18,6 @@ const TopAnime = ({ populer }) => {
       <div className="w-full">
         <Swiper
           slidesPerView={7}
-          // grabCursor={true}
           spaceBetween={0}
           modules={[Pagination]}
           loop={true}
@@ -26,18 +25,24 @@ const TopAnime = ({ populer }) => {
         >
           {populer.data.map((populer, index) => (
             <SwiperSlide key={index}>
-              <Link href={`/anime/${populer.mal_id}`}>
-                <div>
-                  <div className="w-[150px] h-[220px]">
-                    <Image
-                      src={populer.images.webp.image_url}
-                      alt=""
-                      width={350}
-                      height={350}
-                    />
+              <div className="my-10 group relative">
+                <Link href={`/anime/${populer.mal_id}`}>
+                  <div className="group">
+                    <div
+                      className="w-[150px] h-[220px] relative tooltip tooltip-bottom"
+                      data-tip={populer.title}
+                    >
+                      <Image
+                        src={populer.images.webp.image_url}
+                        alt=""
+                        width={350}
+                        height={350}
+                        className="group-hover:scale-125 transition-transform duration-300 group-hover:border-2 border-white rounded-lg"
+                      />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

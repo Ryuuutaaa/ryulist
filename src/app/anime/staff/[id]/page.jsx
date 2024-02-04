@@ -1,8 +1,6 @@
 import { getAnimeResponse } from "@/app/libs/api-libs";
-import CharacterList from "@/components/List/CharacterList";
-import MoreInfo from "@/components/List/MoreInfo";
 import Staff from "@/components/List/Staff";
-import VideoAnime from "@/components/List/VideosAnime";
+
 import NavbarAnime from "@/components/Navbar/NavbarAnime";
 import VideoPlayer from "@/components/utilities/VideoPlayer";
 
@@ -10,13 +8,9 @@ const Page = async ({ params: { id } }) => {
   const anime = await getAnimeResponse(`anime/${id}`);
   const trailerYoutubeId = anime.data.trailer?.youtube_id;
   const characters = await getAnimeResponse(`anime/${id}/characters`);
-  const moreInfo = await getAnimeResponse(`anime/${id}/moreinfo`);
   const animeStaf = await getAnimeResponse(`anime/${id}/staff`);
   const animeVideos = await getAnimeResponse(`anime/${id}/videos`);
   console.log(animeVideos);
-
-  const limitedCharacters = characters.data.slice(0, 6);
-  const limitedStaff = animeStaf.data.slice(0, 6);
 
   const limitSynopsis = (synopsis, limit) => {
     if (synopsis.length <= limit) {
@@ -133,15 +127,8 @@ const Page = async ({ params: { id } }) => {
         </div>
         <div className="w-full px-20">
           <div>
-            <MoreInfo moreInfo={moreInfo} />
+            <Staff staffAnime={animeStaf} />
           </div>
-          <div>
-            <CharacterList characters={limitedCharacters} />
-          </div>
-          <div>
-            <Staff staffAnime={limitedStaff} />
-          </div>
-          <div>{/* <VideoAnime animeEpisodes={animeVideos} /> */}</div>
         </div>
       </div>
     </>

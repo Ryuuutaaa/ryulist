@@ -17,15 +17,25 @@ const Page = async () => {
   return (
     <>
       <section>
-        <Carousel randomAnime={topAnime} />
-        <Header title=" populer" LinkTitle="Liat semua" LinkHreft="/popular" />
-        <TopAnime populer={topAnime1} />
-        <Header
-          title="upcoming"
-          LinkTitle="Liat semua"
-          // LinkHreft="/popular"
-        />
-        <UpcomingAnime upcoming={upcomingAnime} />
+        <div>
+          <Carousel randomAnime={topAnime} />
+        </div>
+        <div>
+          <Header
+            title=" populer"
+            LinkTitle="Liat semua"
+            LinkHreft="/popular"
+          />
+          <TopAnime populer={topAnime1} />
+        </div>
+        <div>
+          <Header
+            title="upcoming"
+            LinkTitle="Liat semua"
+            // LinkHreft="/popular"
+          />
+          <UpcomingAnime upcoming={upcomingAnime} />
+        </div>
       </section>
     </>
   );

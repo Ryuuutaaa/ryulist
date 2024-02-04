@@ -76,6 +76,7 @@ const page = async ({ params: { id } }) => {
         <NavbarAnime
           overview={`/anime/${id}`}
           characterAnime={`/anime/character/${id}`}
+          staffAnime={`/anime/staff/${id}`}
         />
       </div>
       {/*  */}

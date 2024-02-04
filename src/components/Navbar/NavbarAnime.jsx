@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const NavbarAnime = ({ characterAnime, overview }) => {
+const NavbarAnime = ({ characterAnime, overview, staffAnime }) => {
   return (
     <nav className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex justify-center items-end">
@@ -21,7 +21,7 @@ const NavbarAnime = ({ characterAnime, overview }) => {
             </Link>
           </li>
           <li>
-            <Link href="/staff">
+            <Link href={staffAnime}>
               <span className="hover:underline">Staff</span>
             </Link>
           </li>

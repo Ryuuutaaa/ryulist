@@ -3,8 +3,10 @@
 import Link from "next/link";
 import InputSearch from "./InputSearch";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [scrolling, setScrolling] = useState(false);
   const [currentPath, setCurrentPath] = useState("/");
 
@@ -24,9 +26,8 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Update currentPath when window.location.pathname changes
-    setCurrentPath(window.location.pathname);
-  }, [window.location.pathname]);
+    setCurrentPath(pathname);
+  }, [pathname]);
 
   return (
     <header

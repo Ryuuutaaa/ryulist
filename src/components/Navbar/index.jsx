@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
+  const [currentPath, setCurrentPath] = useState("/");
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -17,11 +18,15 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    // Update currentPath when window.location.pathname changes
+    setCurrentPath(window.location.pathname);
+  }, [window.location.pathname]);
 
   return (
     <header
@@ -44,7 +49,7 @@ const Navbar = () => {
                   <Link
                     href="/"
                     className={`transition ${
-                      window.location.pathname === "/"
+                      currentPath === "/"
                         ? "text-white border-b-2 border-white"
                         : "text-gray-500"
                     } hover:text-white hover:border-white`}
@@ -57,7 +62,7 @@ const Navbar = () => {
                   <Link
                     href="/popular"
                     className={`transition ${
-                      window.location.pathname === "/popular"
+                      currentPath === "/popular"
                         ? "text-white border-b-2 border-white"
                         : "text-gray-500"
                     } hover:text-white hover:border-white`}
@@ -70,7 +75,7 @@ const Navbar = () => {
                   <Link
                     href="/upcoming"
                     className={`transition ${
-                      window.location.pathname === "/upcoming"
+                      currentPath === "/upcoming"
                         ? "text-white border-b-2 border-white"
                         : "text-gray-500"
                     } hover:text-white hover:border-white`}
@@ -83,7 +88,7 @@ const Navbar = () => {
                   <Link
                     href="/manga"
                     className={`transition ${
-                      window.location.pathname === "/manga"
+                      currentPath === "/manga"
                         ? "text-white border-b-2 border-white"
                         : "text-gray-500"
                     } hover:text-white hover:border-white`}

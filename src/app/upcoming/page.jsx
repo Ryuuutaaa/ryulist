@@ -2,18 +2,18 @@
 
 import List from "@/components/List/ListAnime";
 import HeaderMenu from "@/components/utilities/HeaderMenu";
+import PaginationBottom from "@/components/utilities/Pagination";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getAnimeResponse } from "../libs/api-libs";
-import PaginationPage from "@/components/utilities/Pagination";
 
 const Page = () => {
   const [pagess, setPage] = useState(1);
-  const [topAnime, setTopAnime] = useState([]);
+  const [upcomingAnime, setUpcomingAnime] = useState([]);
 
   const fetchData = async () => {
-    const data = await getAnimeResponse("top/anime", `page=${pagess}`);
-    setTopAnime(data);
+    const data = await getAnimeResponse("seasons/upcoming", `page=${pagess}`);
+    setUpcomingAnime(data);
   };
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const Page = () => {
 
   return (
     <div className="pt-20">
-      <HeaderMenu title={`ANIME POPULER #${pagess}`} />
-      <List api={topAnime} />
-      <PaginationPage
+      <HeaderMenu title={`UPCOMING ANIME #${pagess}`} />
+      <List api={upcomingAnime} />
+      <PaginationBottom
         page={pagess}
         setPage={setPage}
-        lastPage={topAnime.pagination?.last_visible_page}
+        lastPage={upcomingAnime.pagination?.last_visible_page}
       />
     </div>
   );

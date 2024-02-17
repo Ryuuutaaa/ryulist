@@ -1,8 +1,7 @@
 import { getAnimeResponse } from "@/app/libs/api-libs";
-import CharacterList from "@/components/List/CharacterList";
-import MoreInfo from "@/components/List/MoreInfo";
-import Staff from "@/components/List/Staff";
-import VideoAnime from "@/components/List/VideosAnime";
+import CharacterList from "@/components/List/ListAnime/CharacterList";
+import MoreInfo from "@/components/List/ListAnime/MoreInfo";
+import Staff from "@/components/List/ListAnime/Staff";
 import NavbarAnime from "@/components/Navbar/NavbarAnime";
 import VideoPlayer from "@/components/utilities/VideoPlayer";
 
@@ -13,7 +12,6 @@ const Page = async ({ params: { id } }) => {
   const moreInfo = await getAnimeResponse(`anime/${id}/moreinfo`);
   const animeStaf = await getAnimeResponse(`anime/${id}/staff`);
   const animeVideos = await getAnimeResponse(`anime/${id}/videos`);
-  console.log(animeVideos);
 
   const limitedCharacters = characters.data.slice(0, 6);
   const limitedStaff = animeStaf.data.slice(0, 6);
@@ -42,7 +40,11 @@ const Page = async ({ params: { id } }) => {
         <div className="flex justify-center px-24 absolute inset-0 mt-48">
           <div className="w-1/3 ">
             <img
-              src={anime.data.images.webp.image_url}
+              src={
+                anime.data.images.webp.image_url
+                  ? anime.data.images.webp.image_url
+                  : "/images/anime.png"
+              }
               alt={anime.data.title}
             />
             <div className="flex mt-5">
@@ -102,6 +104,9 @@ const Page = async ({ params: { id } }) => {
             </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
+            <p>Year : {anime.data.year}</p>
+          </div>
+          <div role="alert" className="alert alert-info my-3">
             <p>
               Genre : {anime.data.genres.map((genre) => genre.name).join(", ")}
             </p>
@@ -129,6 +134,9 @@ const Page = async ({ params: { id } }) => {
           </div>
           <div role="alert" className="alert alert-info my-3">
             <p>Popularity : {anime.data.popularity}</p>
+          </div>
+          <div role="alert" className="alert alert-info my-3">
+            <p>Member : {anime.data.members}</p>
           </div>
         </div>
         <div className="w-full px-20">

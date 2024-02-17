@@ -2,16 +2,14 @@ import Link from "next/link";
 
 const Header = ({ title, LinkHreft, LinkTitle }) => {
   return (
-    <div className="-z-[-100]">
-      <header className="text-center flex justify-between items-center p-4 ">
-        <h2 className="text-xl font-bold text-gray-900 sm:text-3xl text-color-primary">
-          {title}
-        </h2>
+    <div>
+      <header className="text-center flex justify-between items-center p-2 ">
+        <h2 className="text-xl font-bold text-gray-500 sm:text-3xl">{title}</h2>
 
         {LinkHreft && LinkTitle ? (
           <Link
             href={LinkHreft}
-            className="underline hover:text-color-accent text-color-primary transition-all"
+            className="underline hover:text-white text-gray-500 transition-all"
           >
             {LinkTitle}
           </Link>

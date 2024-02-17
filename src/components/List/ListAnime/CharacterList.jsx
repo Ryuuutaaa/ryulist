@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CharacterList = ({ characters }) => {
   const isLimitedCharacters = Array.isArray(characters); // Check if characters is an array
   return (
@@ -13,12 +15,14 @@ const CharacterList = ({ characters }) => {
                 >
                   <div className="flex justify-between">
                     <div className="flex items-center">
-                      <div className="w-[60px] h-[100px]">
-                        <img
-                          src={c.character.images.webp.image_url}
-                          className="rounded-lg shadow-2xl"
-                          alt={`${c.character.name} Image`}
-                        />
+                      <div className="w-[60px] h-[100px] hover:scale-110 transition-all">
+                        <Link href={`/character/${c.character.mal_id}`}>
+                          <img
+                            src={c.character.images.webp.image_url}
+                            className="rounded-lg shadow-2xl hover:border-2 border-white"
+                            alt={`${c.character.name} Image`}
+                          />
+                        </Link>
                       </div>
                       <div className="px-3 text-xs">
                         <p className="font-bold py-3">{c.character.name}</p>
@@ -37,14 +41,19 @@ const CharacterList = ({ characters }) => {
                               </h1>
                               <p>{c.voice_actors[0].language}</p>
                             </div>
-                            <div className="w-[60px] h-[100px]">
-                              <img
-                                src={
-                                  c.voice_actors[0].person.images.jpg.image_url
-                                }
-                                alt={`${c.voice_actors[0].person.name} Image`}
-                                className="rounded-lg shadow-2xl"
-                              />
+                            <div className="w-[60px] h-[100px] hover:scale-110 transition-all">
+                              <Link
+                                href={`/seiyu/${c.voice_actors[0].person.mal_id}`}
+                              >
+                                <img
+                                  src={
+                                    c.voice_actors[0].person.images.jpg
+                                      .image_url
+                                  }
+                                  alt={`${c.voice_actors[0].person.name} Image`}
+                                  className="rounded-lg shadow-2xl hover:border-2 border-white"
+                                />
+                              </Link>
                             </div>
                           </div>
                         )}
@@ -59,12 +68,14 @@ const CharacterList = ({ characters }) => {
                 >
                   <div className="flex justify-between">
                     <div className="flex items-center">
-                      <div className="w-[60px] h-[100px]">
-                        <img
-                          src={c.character.images.webp.image_url}
-                          className="rounded-lg shadow-2xl"
-                          alt={`${c.character.name} Image`}
-                        />
+                      <div className="w-[60px] h-[100px] hover:scale-110 transition-all">
+                        <Link href={`/character/${c.character.mal_id}`}>
+                          <img
+                            src={c.character.images.webp.image_url}
+                            className="rounded-lg shadow-2xl hover:border-2 border-white"
+                            alt={`${c.character.name} Image`}
+                          />
+                        </Link>
                       </div>
                       <div className="px-3 text-xs">
                         <p className="font-bold py-3">{c.character.name}</p>
@@ -83,14 +94,19 @@ const CharacterList = ({ characters }) => {
                               </h1>
                               <p>{c.voice_actors[0].language}</p>
                             </div>
-                            <div className="w-[60px] h-[100px]">
-                              <img
-                                src={
-                                  c.voice_actors[0].person.images.jpg.image_url
-                                }
-                                alt={`${c.voice_actors[0].person.name} Image`}
-                                className="rounded-lg shadow-2xl"
-                              />
+                            <div className="w-[60px] h-[100px] hover:scale-110 transition-all">
+                              <Link
+                                href={`/seiyu/${c.voice_actors[0].person.mal_id}`}
+                              >
+                                <img
+                                  src={
+                                    c.voice_actors[0].person.images.jpg
+                                      .image_url
+                                  }
+                                  alt={`${c.voice_actors[0].person.name} Image`}
+                                  className="rounded-lg shadow-2xl hover:border-2 border-white"
+                                />
+                              </Link>
                             </div>
                           </div>
                         )}

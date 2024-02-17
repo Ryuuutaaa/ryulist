@@ -1,15 +1,12 @@
-import { getAnimeResponse } from "@/app/libs/api-libs";
-import CharacterList from "@/components/List/ListAnime/CharacterList";
-import NavbarAnime from "@/components/Navbar/NavbarAnime";
-import VideoPlayer from "@/components/utilities/VideoPlayer";
+import { getAnimeResponse, getMangaResponse } from "@/app/libs/api-libs";
+import MoreInfo from "@/components/List/ListAnime/MoreInfo";
+import ListCharacterManga from "@/components/List/ListManga/ListCharacterManga";
+import { format } from "date-fns";
 
 const page = async ({ params: { id } }) => {
-  const anime = await getAnimeResponse(`anime/${id}`);
-  const trailerYoutubeId = anime.data.trailer?.youtube_id;
-  const characters = await getAnimeResponse(`anime/${id}/characters`);
-  // console.log(characters);
-
-  const limitedCharacters = characters.data.slice(0, 6);
+  const manga = await getAnimeResponse(`manga/${id}/full`);
+  const characterManga = await getMangaResponse(`manga/${id}/characters`);
+  const moreInfo = await getAnimeResponse(`manga/${id}/moreinfo`);
 
   const limitSynopsis = (synopsis, limit) => {
     if (synopsis.length <= limit) {
@@ -21,26 +18,19 @@ const page = async ({ params: { id } }) => {
   return (
     <>
       <div className="h-screen w-full bg-gray-800">
-        {trailerYoutubeId ? (
-          <VideoPlayer youtubeId={trailerYoutubeId} />
-        ) : (
-          <div className="relatif">
-            <img
-              src="/images/anime.png"
-              className="w-full h-72 object-cover "
-            />
-          </div>
-        )}
+        <div className="relatif">
+          <img src="/images/anime.png" className="w-full h-72 object-cover " />
+        </div>
 
         <div className="flex justify-center px-24 absolute inset-0 mt-48">
           <div className="w-1/3 ">
             <img
               src={
-                anime.data.images.webp.image_url
-                  ? anime.data.images.webp.image_url
+                manga.data.images.webp.image_url
+                  ? manga.data.images.webp.image_url
                   : "/images/anime.png"
               }
-              alt={anime.data.title}
+              alt={manga.data.title}
             />
             <div className="flex mt-5">
               <button className="btn w-40 me-2">Add to list</button>
@@ -64,11 +54,11 @@ const page = async ({ params: { id } }) => {
           </div>
           <div className="w-full mt-32">
             <h1 className="text-2xl font-bold mb-2">
-              {anime.data.title} /{" "}
-              <span className="text-base">{anime.data.title_japanese}</span>
+              {manga.data.title} /{" "}
+              <span className="text-base">{manga.data.title_japanese}</span>
             </h1>
             <p className="text-gray-300">
-              {limitSynopsis(anime.data.synopsis).replace(
+              {limitSynopsis(manga.data.synopsis, 800).replace(
                 /\[Written by MAL Rewrite\]/g,
                 ""
               )}
@@ -76,67 +66,68 @@ const page = async ({ params: { id } }) => {
           </div>
         </div>
       </div>
-      <div>
-        <NavbarAnime
-          overview={`/anime/${id}`}
-          characterAnime={`/anime/character/${id}`}
-          staffAnime={`/anime/staff/${id}`}
-        />
-      </div>
-      {/*  */}
       <div className="flex justify-between px-24 pt-10">
         <div className="w-1/5 ">
           <div role="alert" className="alert alert-info my-3 ">
             <p>
               <span className="pe-3">⭐</span>
-              {anime.data.score}
+              {manga.data.score}
             </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
             <p>
               <span className="pe-3">🏆</span>
-              {anime.data.rank}
+              {manga.data.rank}
             </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Year : {anime.data.year}</p>
+            <p>Chapters : {manga.data.chapters ? manga.data.chapters : "-"}</p>
           </div>
           <div role="alert" className="alert alert-info my-3">
             <p>
-              Genre : {anime.data.genres.map((genre) => genre.name).join(", ")}
+              Genre : {manga.data.genres.map((genre) => genre.name).join(", ")}
             </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Seasons : {anime.data.season}</p>
+            <p>Volumes : {manga.data.volumes ? manga.data.volumes : "-"}</p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Type : {anime.data.type}</p>
+            <p>Type : {manga.data.type}</p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Eposide : {anime.data.episodes}</p>
+            <p>
+              Published:{" "}
+              {format(new Date(manga.data.published.from), "MMMM dd, yyyy")}
+            </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Status : {anime.data.status}</p>
+            <p>
+              To: {format(new Date(manga.data.published.to), "MMMM dd, yyyy")}
+            </p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>Studio : {anime.data.studios.map((stuido) => stuido.name)}</p>
+            <p>Status : {manga.data.status}</p>
+          </div>
+          {/* <div role="alert" className="alert alert-info my-3">
+            <p>Studio : {manga.data.studios.map((stuido) => stuido.name)}</p>
+          </div> */}
+          <div role="alert" className="alert alert-info my-3">
+            <p>Autor : {manga.data.authors.map((autor) => autor.name)}</p>
+          </div>
+
+          <div role="alert" className="alert alert-info my-3">
+            <p>Popularity : {manga.data.popularity}</p>
           </div>
           <div role="alert" className="alert alert-info my-3">
-            <p>duration : {anime.data.duration}</p>
-          </div>
-          <div role="alert" className="alert alert-info my-3">
-            <p>Rating : {anime.data.rating}</p>
-          </div>
-          <div role="alert" className="alert alert-info my-3">
-            <p>Popularity : {anime.data.popularity}</p>
-          </div>
-          <div role="alert" className="alert alert-info my-3">
-            <p>Member : {anime.data.members}</p>
+            <p>Member : {manga.data.members}</p>
           </div>
         </div>
         <div className="w-full px-20">
           <div>
-            <CharacterList characters={characters} />
+            <MoreInfo moreInfo={moreInfo} />
+          </div>
+          <div>
+            <ListCharacterManga cManga={characterManga} />
           </div>
         </div>
       </div>

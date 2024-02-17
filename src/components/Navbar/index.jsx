@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import InputSearch from "./InputSearch";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -22,6 +22,7 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <header
       className={`bg-gray-700 fixed w-full z-50 transition-all duration-300 ${
@@ -31,8 +32,8 @@ const Navbar = () => {
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 ">
         <div className="flex h-16 items-center justify-between ">
           <div className="md:flex md:items-center md:gap-12">
-            <Link className="block text-teal-600" href="/">
-              <h1 className="font-bold text-color-secondary">Ryutaaa</h1>
+            <Link href="/" className="block text-teal-600 font-bold ">
+              ひらりとリュタ
             </Link>
           </div>
 
@@ -40,57 +41,55 @@ const Navbar = () => {
             <nav aria-label="Global">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
+                  <Link
                     href="/"
+                    className={`transition ${
+                      window.location.pathname === "/"
+                        ? "text-white border-b-2 border-white"
+                        : "text-gray-500"
+                    } hover:text-white hover:border-white`}
                   >
-                    About
-                  </a>
+                    Home
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                  <Link
+                    href="/popular"
+                    className={`transition ${
+                      window.location.pathname === "/popular"
+                        ? "text-white border-b-2 border-white"
+                        : "text-gray-500"
+                    } hover:text-white hover:border-white`}
                   >
-                    Careers
-                  </a>
+                    Populer Anime
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                  <Link
+                    href="/upcoming"
+                    className={`transition ${
+                      window.location.pathname === "/upcoming"
+                        ? "text-white border-b-2 border-white"
+                        : "text-gray-500"
+                    } hover:text-white hover:border-white`}
                   >
-                    History
-                  </a>
+                    Upcoming Anime
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                  <Link
+                    href="/manga"
+                    className={`transition ${
+                      window.location.pathname === "/manga"
+                        ? "text-white border-b-2 border-white"
+                        : "text-gray-500"
+                    } hover:text-white hover:border-white`}
                   >
-                    Services
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Projects
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Blog
-                  </a>
+                    Manga
+                  </Link>
                 </li>
               </ul>
             </nav>

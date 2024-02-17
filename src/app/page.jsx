@@ -1,11 +1,12 @@
 // This components
 
 import Header from "@/components/List/Header";
-import List from "@/components/List";
+import List from "@/components/List/ListAnime";
 import { getAnimeResponse } from "./libs/api-libs";
 import Carousel from "@/components/Carousel/page";
-import TopAnime from "@/components/List/Top_Anime";
-import UpcomingAnime from "@/components/List/Upcoming_Anime";
+import TopAnime from "@/components/List/ListAnime/Top_Anime";
+import UpcomingAnime from "@/components/List/ListAnime/Upcoming_Anime";
+import AllListAnime from "@/components/List/page";
 
 // end
 
@@ -21,20 +22,7 @@ const Page = async () => {
           <Carousel randomAnime={topAnime} />
         </div>
         <div>
-          <Header
-            title=" populer"
-            LinkTitle="Liat semua"
-            LinkHreft="/popular"
-          />
-          <TopAnime populer={topAnime1} />
-        </div>
-        <div>
-          <Header
-            title="upcoming"
-            LinkTitle="Liat semua"
-            // LinkHreft="/popular"
-          />
-          <UpcomingAnime upcoming={upcomingAnime} />
+          <AllListAnime populer={topAnime1} upcoming={upcomingAnime} />
         </div>
       </section>
     </>
